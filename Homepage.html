@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>15 Royal Homepage</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="style_this_shit.css">
+  <link rel="stylesheet" href="style this shit part 2.css">
+  <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js" type="text/javascript"></script>
+  <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <div class="topnav">
+    <a class="active" href="Homepage.html">Home</a>
+    <a href="#financial">Financial</a>
+    <a href="team.html">Team Memebers</a>
+  </div>
+
+  <!-- Main Content -->
+
+<body>
+
+  <!-- Clock in/out -->
+	<div id='clock' class='buttons-box'>
+		<button class='clock-in' id="clock-in-button">Clock In</button>
+		<button class='clock-out' id="clock-out-button" disabled>Clock Out</button>
+		<button class='start-meal' id="break-button" disabled>Start Meal</button>
+		<button class='end-meal' id="break-button" disabled>End Meal</button>
+	</div>
+	
+	<!-- clock -->
+	<div>
+		<div class='clock' id='clock-container'>
+			<div id="hour"></div>
+			<div id="minute"></div>
+			<div id="second"></div>
+		</div>
+	</div>
+	
+	<!-- Chatbox -->
+	<div id="chat">
+		<h2>Chat</h2>
+		<ul id="chat-box"></ul>
+		<textarea id="chat-input" placeholder="Type a message and press Enter"></textarea>
+	</div>
+	<script>
+			const clock = document.getElementById('clock');
+			const checkInButton = document.getElementById('check-in-button');
+			const checkOutButton = document.getElementById('check-out-button');
+			const breakButton = document.getElementById('break-button');
+			const chatMessages = document.getElementById('chat-box');
+			const chatInput = document.getElementById('chat-input');
+
+			let checkInTime;
+			let breakTime;
+
+			// Function to check in
+			checkInButton.addEventListener('click', () => {
+			  checkInTime = new Date();
+			  addMessage(`You checked in at ${checkInTime.toLocaleTimeString()}.`);
+			  checkInButton.disabled = true;
+			  checkOutButton.disabled = false;
+			  breakButton.disabled = false;
+			});
+
+			// Function to check out
+			checkOutButton.addEventListener('click', () => {
+			  const checkOutTime = new Date();
+			  const diff = checkOutTime - checkInTime;
+			  const hours = Math.floor(diff / 3600000);
+			  const minutes = Math.floor((diff %   3600000) / 60000);
+		  const seconds = Math.floor((diff % 60000) / 1000);
+		  addMessage(`You worked for ${hours} hours, ${minutes} minutes, and ${seconds} seconds.`);
+		  checkInButton.disabled = false;
+		  checkOutButton.disabled = true;
+		  breakButton.disabled = true;
+		});
+
+		// Function to take a break
+		breakButton.addEventListener('click', () => {
+		  breakTime = new Date();
+		  addMessage(`You took a break at ${breakTime.toLocaleTimeString()}.`);
+		  checkInButton.disabled = true;
+		  checkOutButton.disabled = true;
+		  breakButton.disabled = true;
+		  setTimeout(() => {
+			addMessage('Break is over. Please check back in.');
+			checkInButton.disabled = false;
+		  }, 300000); // Break time is 5 minutes
+		});
+
+		// Function to add a chat message
+		function addMessage(message) {
+		  const li = document.createElement('li');
+		  li.innerText = message;
+		  chatMessages.appendChild(li);
+		  chatMessages.scrollTop = chatMessages.scrollHeight;
+		}
+
+		// Function to handle chat input
+		chatInput.addEventListener('keypress', (event) => {
+		  if (event.key === 'Enter' && chatInput.value.trim() !== '') {
+			addMessage(`You: ${chatInput.value}`);
+			chatInput.value = '';
+		  }
+		});
+
+		// Function to update the clock every second
+		setInterval(() => {
+		  const now = new Date();
+		  const hours = now.getHours().toString().padStart(2, '0');
+		  const minutes = now.getMinutes().toString().padStart(2, '0');
+		  const seconds = now.getSeconds().toString().padStart(2, '0');
+		  clock.innerText = `${hours}:${minutes}:${seconds}`;
+		}, 1000);
+		setInterval(() => {
+		  const now = new Date();
+		  let hours = now.getHours();
+		  const minutes = now.getMinutes().toString().padStart(2, '0');
+		  const seconds = now.getSeconds().toString().padStart(2, '0');
+		  
+		  let ampm = "AM";
+		  if (hours > 12) {
+			hours -= 12;
+			ampm = "PM";
+		  }
+		  hours = hours.toString().padStart(2, '0');
+		  
+		  clock.innerText = `${hours}:${minutes}:${seconds} ${ampm}`;
+		}, 1000);
+
+
+	</script>
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- Schedule Box -->
+  <div class="schedule">
+    <h3>Schedule for the Week:</h3>
+    <p>Monday: 9am-5pm</p>
+    <p>Tuesday: 1pm-9pm</p>
+    <p>Wednesday: 10am-6pm</p>
+    <p>Thursday: 8am-4pm</p>
+    <p>Friday: 12pm-8pm</p>
+	<a href="#Request Time Off">Request Time off</a>
+  </div>
+	
+  <!-- Profile Box -->
+  <div class="profile-box">
+	<button class="edit-profile-button">Edit</button>
+    <img src="bb0184bd7d946797c8ddd0893eeb4bb0-crowned-15-element.png" alt="Profile Picture">
+    <h3>Employee Name</h3>
+    <p>Position: Job Title</p>
+    <p>Email: employee@15royal.com</p>
+    <p>Phone: (123) 456-7890</p>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>15 Royal</p>
+  </footer>
+
+  <!-- Dark/light theme switcher -->
+
+  <!-- Scroll to top button -->
+</body>
+</html>
+
+
+<!-- Clock script -->
+<script>
+	setInterval(() => {
+	d = new Date(); //object of date()
+	hr = d.getHours();
+	min = d.getMinutes();
+	sec = d.getSeconds();
+	hr_rotation = 30 * hr + min / 2; //converting current time
+	min_rotation = 6 * min;
+	sec_rotation = 6 * sec;
+			  
+	hour.style.transform = `rotate(${hr_rotation}deg)`;
+	minute.style.transform = `rotate(${min_rotation}deg)`;
+	second.style.transform = `rotate(${sec_rotation}deg)`;
+	}, 1000);
+</script>
